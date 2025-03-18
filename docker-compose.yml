@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      MONGO_URI: mongodb://db:27017/mydatabase  # URL de conexión a MongoDB
+    depends_on:
+      - db
+
+  db:
+    image: mongo:5.0  # Usar la imagen oficial de MongoDB
+    container_name: db_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db  # Persistencia de datos
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+volumes:
+  mongo_data:
+
+networks:
+  backend:
+    driver: bridge
