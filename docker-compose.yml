@@ -9,23 +9,26 @@ services:
       - api
 
   api:
-  build: ./api
-  ports:
-    - "3000:3000"
-  environment:
-    MONGODB_HOST: localhost  # Nombre del servicio de MongoDB
-    PORT_DATABASE: 27017
-    NAME_DATABASE: mydatabase
-  depends_on:
-    - db
+    build: ./api  # Ruta al Dockerfile de la API
+    container_name: api_container
+    ports:
+      - "3000:3000"  # Mapeo de puertos (host:contenedor)
+    environment:
+      MONGO_URI: mongodb://root:password@localhost:27017/mydatabase  # URL de conexión a MongoDB
+    depends_on:
+      - db  # Depende del servicio de MongoDB
 
   db:
-    image: mongo:5.0  # Usar la imagen oficial de MongoDB
+    image: mongo:5.0
     container_name: db_container
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db  # Persistencia de datos
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: mydatabase
 
 volumes:
   mongo_data:
