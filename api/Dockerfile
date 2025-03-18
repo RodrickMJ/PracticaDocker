@@ -1,20 +1,13 @@
-# Usar una imagen base de Node.js
-FROM node:14
+FROM node:20.18.0-alpine3.19
 
-# Establecer el directorio de trabajo
-WORKDIR /app
+WORKDIR /PracticaDocker/api/rest-api
 
-# Copiar archivos de dependencias
-COPY package.json .
-
-# Instalar dependencias
-RUN npm install
-
-# Copiar el resto del código
 COPY . .
 
-# Exponer el puerto 5000
-EXPOSE 5000
+RUN npm install
 
-# Comando para iniciar la API
-CMD ["node", "app.js"]
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
