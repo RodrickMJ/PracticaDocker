@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", formData);
+      const response = await axios.post("http://44.199.33.206:3000/api/users/login", formData);
       alert("Inicio de sesión exitoso!");
       localStorage.setItem("user", JSON.stringify(response.data.user)); // Guardar usuario en localStorage
       navigate("/home"); // Redirigir al home

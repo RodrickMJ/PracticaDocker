@@ -9,7 +9,7 @@ const Home = () => {
       try {
         const storedUser = JSON.parse(localStorage.getItem("user"));
         if (storedUser) {
-          const response = await axios.get(`http://localhost:5000/api/users/${storedUser.id}`);
+          const response = await axios.get(`http://44.199.33.206:3000/api/users/${storedUser.id}`);
           setUser(response.data);
         }
       } catch (error) {
