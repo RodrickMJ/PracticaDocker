@@ -10,6 +10,8 @@ connectDB();
 // Rutas
 app.use("/api/users", require("./routes/userRoutes"));
 
+app.get('/', (_req, res) => res.send('Hello World API'));
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);
